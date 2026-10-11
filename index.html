@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nahri Family Tree</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn only-mobile" id="btnFilters" aria-label="Toggle filters">☰</button>
+    <div class="brand">
+      <span class="brand-mark">⌂</span>
+      <div>
+        <h1>Family Tree</h1>
+        <p id="subtitle">Loading…</p>
+      </div>
+    </div>
+
+    <div class="search">
+      <span class="search-ico">⌕</span>
+      <input id="search" type="search" placeholder="Search name, nickname, spouse, place…" autocomplete="off">
+    </div>
+
+    <div class="seg" id="viewSwitch" role="tablist">
+      <button class="on" data-view="tree" role="tab">Tree</button>
+      <button data-view="table" role="tab">Table</button>
+    </div>
+
+    <label class="btn ghost" title="Load a different .xlsx file">
+      Open Excel
+      <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
+    </label>
+    <button class="icon-btn" id="btnTheme" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-head">
+        <h2>Filters</h2>
+        <button class="link" id="btnReset">Reset all</button>
+      </div>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="field">
+        <label>Generation</label>
+        <div class="chips" id="genChips"></div>
+      </div>
+
+      <div class="field">
+        <label>Gender</label>
+        <div class="chips" id="genderChips"></div>
+      </div>
+
+      <div class="field">
+        <label for="fStatus">Status</label>
+        <select id="fStatus">
+          <option value="">Everyone</option>
+          <option value="living">Living / no death recorded</option>
+          <option value="deceased">Deceased</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="fBranch">Branch (descendants of…)</label>
+        <select id="fBranch"></select>
+      </div>
+
+      <div class="field">
+        <label for="fPob">Place of birth</label>
+        <select id="fPob"></select>
+      </div>
+
+      <div class="field">
+        <label for="fQual">Qualification</label>
+        <select id="fQual"></select>
+      </div>
+
+      <div class="field">
+        <label for="fHas">Record has</label>
+        <select id="fHas">
+          <option value="">Anything</option>
+          <option value="dob">Date of birth</option>
+          <option value="spouse">Spouse</option>
+          <option value="children">Children</option>
+          <option value="nochildren">No children recorded</option>
+        </select>
+      </div>
+
+      <div class="result-count" id="resultCount"></div>
+    </aside>
+
+    <main class="main">
+      <section id="treeView" class="stage" aria-label="Family tree">
+        <div id="world" class="world"></div>
+        <div class="stage-ctrls">
+          <button class="icon-btn" id="zoomIn" title="Zoom in">+</button>
+          <button class="icon-btn" id="zoomOut" title="Zoom out">−</button>
+          <button class="icon-btn" id="zoomFit" title="Fit to screen">⤢</button>
+          <button class="icon-btn" id="expandAll" title="Expand all">⊞</button>
+          <button class="icon-btn" id="collapseAll" title="Collapse all">⊟</button>
+        </div>
+        <div class="legend">
+          <span><i class="dot male"></i> Male</span>
+          <span><i class="dot female"></i> Female</span>
+          <span><b>†</b> Deceased</span>
+          <span class="hint">Drag to pan · scroll to zoom · hover or click a person for details</span>
+        </div>
+        <div class="empty" id="emptyMsg" hidden>No one matches these filters.</div>
+      </section>
+
+      <section id="tableView" class="table-wrap" hidden>
+        <table id="table"></table>
+      </section>
+    </main>
+
+    <aside class="panel" id="panel" aria-live="polite" hidden></aside>
+  </div>
+
+  <div class="tooltip" id="tooltip" hidden></div>
+  <div class="toast" id="toast" hidden></div>
+
+  <!-- Excel reader (loaded from a CDN; if offline the embedded data in js/data.js is used) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
